@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "416237473218",
+    "project_id": "ace-grade-viewer",
+    "storage_bucket": "ace-grade-viewer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416237473218:android:2fb830b828fb17579f9a5b",
+        "android_client_info": {
+          "package_name": "com.wazaskiller.acegradeviewer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416237473218-s0rhvgpje349ta1iod13jjnon3mj4vtu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHtlNSO3Z3QWA7teziPLketAQk347k1Y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416237473218-s0rhvgpje349ta1iod13jjnon3mj4vtu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "ace-grade-viewer",
+    "slug": "ace-grade-viewer",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/acelogo.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1991a1"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "useNextNotificationsApi": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/acelogo.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.wazaskiller.acegradeviewer",
+      "googleServicesFile": "./google-services.json",
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
