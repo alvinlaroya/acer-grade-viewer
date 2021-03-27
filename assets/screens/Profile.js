@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { View, ScrollView, StyleSheet, Text } from "react-native";
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { ImageBackground, Image } from "react-native";
 import {
   Appbar,
@@ -14,8 +14,15 @@ import {
 } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import Constants from 'expo-constants';
+
+import firebase from "firebase/app";
 import { fb } from "../../firebase";
+import "firebase/auth";
+import 'firebase/firestore';
+import "firebase/storage";
+
 import { useEffect } from "react";
+import * as ImagePicker from 'expo-image-picker';
 
 const db = fb.firestore();
 
@@ -30,6 +37,9 @@ const Profile = ({navigation}) => {
     accepted: false,
     type: "",
   });
+
+  const [image, setImage] = useState('');
+  const [profileImage, setProfileImage] = useState('')
 
   useEffect(() => {
     fetchUserInfo();
@@ -53,6 +63,8 @@ const Profile = ({navigation}) => {
                 type: doc.data().type,
                 requestStatus: doc.data().requestStatus,
             })); 
+
+            setImage(doc.data().profile)
         } else {
          
         }
@@ -61,6 +73,59 @@ const Profile = ({navigation}) => {
         console.log("Error getting document:", error);
       });
   };
+
+  const pickImage = async () => {
+    /* let result = await ImagePicker.launchCameraAsync(); */ // THIS IS FOR TRIGGERING CAMERA
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      var date = Math.round(new Date().getTime() / 1000);
+      uploadImage(result.uri, `aceProfileImage${date}`)
+      .then(() => {
+        //
+      }).catch((error) => {
+        alert(error)
+      })
+      
+      console.log('image url', result.uri)
+      setImage(result.uri)
+    }
+  }
+
+  const uploadImage = async (uri, imageName) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+
+    var ref = fb.storage().ref().child("profileImages/" + imageName);
+
+    ref.put(blob).on(
+      "state_changed",
+      (snapshot) => {
+      },
+      (error) => {
+        console.log(error.message);
+      },
+      () => {
+        ref
+        .getDownloadURL()
+        .then((url) => {
+          //from url you can fetched the uploaded image easily
+          /* setProfileImage(url) */
+          let userRef = db.collection("users").doc(fb.auth().currentUser.uid);
+          userRef.update({
+            profile: url
+          })
+        })
+      }
+    );
+  }
 
 
   const signOut = async () => {
@@ -77,7 +142,14 @@ const Profile = ({navigation}) => {
     <>
       <StatusBar style="dark" />
       <View style={{alignItems: 'center', padding: 30, marginTop: Constants.statusBarHeight}}>
-        <Avatar.Image size={130} source={{uri: session.profile !== '' ? session.profile : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHe330tYy_U_3UN0DmUSbGoFbXigdIQglDAA&usqp=CAU'}} />
+        <View>
+            <TouchableOpacity  onPress={pickImage}>
+              <Image source={{uri: image !== '' ? image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHe330tYy_U_3UN0DmUSbGoFbXigdIQglDAA&usqp=CAU'}} style={styles.logoProfile}></Image>
+          </TouchableOpacity>
+          <Text style={{textAlign: 'center', marginTop: -15, marginBottom: 15}}>
+              {image !== '' ? "Change Profile Picture" : "Select Profile Picture"}
+          </Text>
+        </View>
         <Text style={{fontSize: 25, fontWeight: 'bold'}}>{session.fname} {session.lname}</Text>
         <Text style={{fontSize: 15}}>{session.email}</Text>
       </View>
@@ -119,3 +191,23 @@ const Profile = ({navigation}) => {
 }}) */
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'white',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    marginBottom: 10
+  },
+  logoProfile: {
+      width: 145,
+      height: 145,
+      borderRadius: 100,
+      marginBottom: 20,
+      marginTop: 15
+  }
+});

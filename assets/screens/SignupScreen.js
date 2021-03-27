@@ -34,6 +34,7 @@ const SignUpScreen = ({route, navigation}) => {
     const [teacher_position, setTeacherPosition] = useState('');
     const [teacher_subject, setTeacherSubject] = useState('');
     const [lrn, setLrn] = useState('');
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const [guardianEmail, setGuardianEmail] = useState('');
     const [guardianFname, setGuardianFname] = useState('');
@@ -286,13 +287,20 @@ const SignUpScreen = ({route, navigation}) => {
                       label="Email"
                       onChangeText={(email) => setEmail(email)}
                   />
-                  <TextInput
-                      dense={true}
-                      style={{marginTop: 10}}
-                      label="Password"
-                      secureTextEntry={true}
-                      onChangeText={(password) => setPassword(password)}
-                  />
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <View style={{width: '100%'}}>
+                      <TextInput
+                          dense={true}
+                          style={{marginTop: 10}}
+                          label="Password"
+                          secureTextEntry={!passwordVisible}
+                          onChangeText={(password) => setPassword(password)}
+                      />
+                      <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)} style={{position: 'absolute', top: 12, right: 4}}>
+                        <MaterialCommunityIcons name={passwordVisible ? `eye-off-outline` : `eye-outline`} color="black" size={25} style={styles.iconInput} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                   {
                       enterAs === 'Student' && (
                         <TextInput
@@ -332,6 +340,8 @@ const SignUpScreen = ({route, navigation}) => {
                       style={{marginTop: 10}}
                       label="Contact"
                       onChangeText={(contact) => setContact(contact)}
+                      maxLength={11}
+                      keyboardType='numeric'
                   />
                   {
                     enterAs === 'Student' && (
