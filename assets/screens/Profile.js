@@ -24,6 +24,8 @@ import "firebase/storage";
 import { useEffect } from "react";
 import * as ImagePicker from 'expo-image-picker';
 
+var user = fb.auth().currentUser;
+
 const db = fb.firestore();
 
 const Profile = ({navigation}) => {
@@ -122,6 +124,14 @@ const Profile = ({navigation}) => {
           userRef.update({
             profile: url
           })
+
+          user.updateProfile({
+            photoURL: url
+          }).then(function() {
+            // Update successful.
+          }).catch(function(error) {
+            // An error happened.
+          });
         })
       }
     );

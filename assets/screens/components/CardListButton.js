@@ -59,6 +59,26 @@ const CardListButton = (props) => {
       <Card
         style={{ marginTop: 20, elevation: 7 }}
         onPress={() => {
+          navigation.navigate("Teachers", {
+            type: props.type,
+          });
+        }}
+      >
+        <Card.Content>
+          <Title style={{ fontWeight: "bold" }}>TEACHERS</Title>
+        </Card.Content>
+        <Card.Cover
+          blurRadius={1}
+          style={{ marginTop: 10 }}
+          source={{
+            uri:
+              "https://img.freepik.com/free-vector/teacher-front-chalkboard-with-copy-space-your-text_38747-184.jpg?size=626&ext=jpg",
+          }}
+        />
+      </Card>
+      <Card
+        style={{ marginTop: 20, elevation: 7 }}
+        onPress={() => {
           navigation.navigate("SchoolYear", {
             type: props.type,
           });

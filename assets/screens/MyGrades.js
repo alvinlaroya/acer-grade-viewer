@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants"
 import { Picker } from "@react-native-picker/picker";
 import {
   StyleSheet,
@@ -41,6 +42,8 @@ const MyGrades = ({ route, navigation }) => {
   const [average2nd, setAverage2nd] = useState([]);
   const [average3rd, setAverage3rd] = useState([]);
   const [average4th, setAverage4th] = useState([]);
+  const [average1stSem, setAverage1stSem] = useState([]);
+  const [average2ndSem, setAverage2ndSem] = useState([]);
 
   const [grades, setGrades] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -82,7 +85,7 @@ const MyGrades = ({ route, navigation }) => {
             color="gray"
             size={30}
             onPress={() => navigation.goBack(null)}
-            style={{ marginTop: 10 }}
+            style={{ marginTop: Constants.statusBarHeight + 10 }}
           />
         </View>
         <View style={{ padding: 20, marginTop: -10 }}>
@@ -174,7 +177,10 @@ const MyGrades = ({ route, navigation }) => {
                   )
               ))}
 
-              <DataTable.Row>
+              {level === "Grade11" || level === "Grade12" ? (
+                <></>
+              ) : (
+                <DataTable.Row>
                 <DataTable.Cell>
                     <Text style={{fontWeight: 'bold'}}>Average</Text>
                 </DataTable.Cell>
@@ -183,6 +189,7 @@ const MyGrades = ({ route, navigation }) => {
                 </DataTable.Cell>
                 <DataTable.Cell numeric></DataTable.Cell>
               </DataTable.Row>
+              )}
             </DataTable>
           )}
         </View>
@@ -240,15 +247,31 @@ const MyGrades = ({ route, navigation }) => {
                   )
               ))}
 
-              <DataTable.Row>
-                <DataTable.Cell>
-                  <Text style={{fontWeight: 'bold'}}>Average</Text>
-                </DataTable.Cell>
-                <DataTable.Cell numeric>
-                  {(average2nd.reduce((a, b) => a + b, 0) / average2nd.length).toFixed(2)}
-                </DataTable.Cell>
-                <DataTable.Cell numeric></DataTable.Cell>
-              </DataTable.Row>
+              {level === "Grade11" || level === "Grade12" ? (
+                average2nd.length > 0 && (
+                  <DataTable.Row>
+                    <DataTable.Cell>
+                      <Text style={{fontWeight: 'bold'}}>1st Sem. Average</Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric>
+                      {((average1st.reduce((a, b) => a + b, 0) + average2nd.reduce((a, b) => a + b, 0)) / (average1st.length + average2nd.length)).toFixed(2)}
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric></DataTable.Cell>
+                  </DataTable.Row>
+                )
+              ) : (
+                average2nd.length > 0 && (
+                  <DataTable.Row>
+                    <DataTable.Cell>
+                      <Text style={{fontWeight: 'bold'}}>Average</Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric>
+                      {(average2nd.reduce((a, b) => a + b, 0) / average2nd.length).toFixed(2)}
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric></DataTable.Cell>
+                  </DataTable.Row>
+                  )
+              )}
             </DataTable>
           )}
         </View>
@@ -306,15 +329,17 @@ const MyGrades = ({ route, navigation }) => {
                   )
               ))}
 
-              <DataTable.Row>
-                <DataTable.Cell>
-                  <Text style={{fontWeight: 'bold'}}>Average</Text>
-                </DataTable.Cell>
-                <DataTable.Cell numeric>
-                  {(average3rd.reduce((a, b) => a + b, 0) / average3rd.length).toFixed(2)}
-                </DataTable.Cell>
-                <DataTable.Cell numeric></DataTable.Cell>
-              </DataTable.Row>
+              {average3rd.length > 0 && (
+                <DataTable.Row>
+                  <DataTable.Cell>
+                    <Text style={{fontWeight: 'bold'}}>Average</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric>
+                    {(average3rd.reduce((a, b) => a + b, 0) / average3rd.length).toFixed(2)}
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric></DataTable.Cell>
+                </DataTable.Row>
+              )}
             </DataTable>
           )}
         </View>
@@ -372,7 +397,20 @@ const MyGrades = ({ route, navigation }) => {
                   )
               ))}
 
-              <DataTable.Row>
+              {level === "Grade11" || level === "Grade12" ? (
+                average4th.length > 0 && (
+                  <DataTable.Row>
+                    <DataTable.Cell>
+                      <Text style={{fontWeight: 'bold'}}>2nd Seme. Average</Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric>
+                      {((average3rd.reduce((a, b) => a + b, 0) + average4th.reduce((a, b) => a + b, 0)) / (average1st.length + average4th.length)).toFixed(2)}
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric></DataTable.Cell>
+                  </DataTable.Row>
+                )
+              ) : (
+                <DataTable.Row>
                 <DataTable.Cell>
                   <Text style={{fontWeight: 'bold'}}>Average</Text>
                 </DataTable.Cell>
@@ -381,6 +419,7 @@ const MyGrades = ({ route, navigation }) => {
                 </DataTable.Cell>
                 <DataTable.Cell numeric></DataTable.Cell>
               </DataTable.Row>
+              )}
             </DataTable>
           )}
         </View>

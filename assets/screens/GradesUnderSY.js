@@ -76,6 +76,12 @@ const GradesUnderSY = ({route, navigation }) => {
                   level: item.name,
                   type: type
                 })
+              } else if(type === "Teacher") {
+                navigation.navigate("SubjectsUnderTeacher", {
+                  id: userId,
+                  sy: sy,
+                  level: item.name
+                })
               } else {
                 navigation.navigate("GradesList", {
                   sy: sy,

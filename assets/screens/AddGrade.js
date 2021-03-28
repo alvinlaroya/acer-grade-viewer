@@ -51,6 +51,7 @@ const AddGrade = ({ route, navigation }) => {
   const [subject, setSubject] = useState("");
   const [grading, setGrading] = useState("");
   const [allGrades, setAllGrades] = useState([]);
+  const [allSubjects, setAllSubjects] = useState([]);
 
   const [gradings, setGradings] = useState([
     [
@@ -144,6 +145,7 @@ const AddGrade = ({ route, navigation }) => {
       db.collection("grades")
         .add({
           lrn: lrn,
+          studentName: `${studentInfo.fname} ${studentInfo.lname}`,
           level: level,
           sy: sy,
           stageType: stageType,
@@ -163,6 +165,7 @@ const AddGrade = ({ route, navigation }) => {
             setSubject('');
             setTeacher('');
             setGrade(0);
+            setAllSubjects(oldSubjects => [...oldSubjects, subject])
             setAllGrades(oldArray => [...oldArray, {
               lrn: lrn,
               level: level,
@@ -183,6 +186,12 @@ const AddGrade = ({ route, navigation }) => {
   const sendGrade = () => {
     setButtonLoading(true)
     sendNotificationToAllUsers(allGrades, studentInfo.token)
+    var studentRef = db.collection("students").doc(studentInfo.id)
+    allSubjects.map(sub => {
+      studentRef.update({
+        subjectsEnrolled: firebase.firestore.FieldValue.arrayUnion(sub)
+      });
+    })
   }
 
   async function sendNotificationToAllUsers(grades, token) {

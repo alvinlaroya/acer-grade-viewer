@@ -94,6 +94,15 @@ const ChipsMenu = (props) => {
             </View>
             <View>
               <Chip
+                icon="school"
+                onPress={() => navigation.navigate("EnrolledStudents")}
+                style={{ marginRight:15, height: 35 }}
+              >
+                Enrolled Students
+              </Chip>
+            </View>
+            <View>
+              <Chip
                 icon="shield-account"
                 onPress={() => navigation.navigate("AdminRequests")}
                 style={{ marginRight:15, height: 35 }}

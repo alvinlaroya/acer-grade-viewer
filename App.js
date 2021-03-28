@@ -35,6 +35,11 @@ import AddComment from './assets/screens/AddComment';
 import UpdateGrade from './assets/screens/UpdateGrade';
 import ViewComment from './assets/screens/ViewComment';
 import TeachersList from './assets/screens/TeachersList';
+import SubjectsUnderTeacher from './assets/screens/SubjectsUnderTeacher';
+import StudentsUnderSubjectsTeacher from './assets/screens/StudentsUnderSubjectsTeacher';
+import TeacherProfile from './assets/screens/TeacherProfile';
+import Teachers from './assets/screens/Teachers';
+import EnrolledStudents from './assets/screens/EnrolledStudents';
 import Settings from './assets/screens/Settings';
 import ChangePassword from './assets/screens/settings/ChangePassword';
 
@@ -118,6 +123,11 @@ const App = ({navigation}) => {
           <Stack.Screen name="TeachersList" component={TeachersList} options={{ headerShown: false }}/>
           <Stack.Screen name="Settings" component={Settings} options={{ headerShown: false }}/>
           <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ headerShown: false }}/>
+          <Stack.Screen name="SubjectsUnderTeacher" component={SubjectsUnderTeacher} options={{ headerShown: false }}/>
+          <Stack.Screen name="StudentsUnderSubjectsTeacher" component={StudentsUnderSubjectsTeacher} options={{ headerShown: false }}/>
+          <Stack.Screen name="EnrolledStudents" component={EnrolledStudents} options={{ headerShown: false }}/>
+          <Stack.Screen name="Teachers" component={Teachers} options={{ headerShown: false }}/>
+          <Stack.Screen name="TeacherProfile" component={TeacherProfile} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>

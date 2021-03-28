@@ -7,6 +7,7 @@ import {
   TextInput,
 } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants"
 import { fb } from "../../firebase";
 import ChipsMenu from "../screens/components/ChipsMenu";
 import CardListButton from "../screens/components/CardListButton";
@@ -64,7 +65,7 @@ const AppToken = ({ navigation }) => {
         color="gray"
         size={30}
         onPress={() => navigation.goBack(null)}
-        style={{ marginTop: 10 }}
+        style={{ marginTop: Constants.statusBarHeight + 10 }}
       />
       <View
         style={{
