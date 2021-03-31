@@ -22,7 +22,7 @@ import {
 } from "react-native-paper";
 import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
-
+import MultiSelect from 'react-native-multiple-select';
 import firebase from "firebase/app";
 import { fb } from "../../firebase";
 import "firebase/auth";
@@ -39,16 +39,41 @@ const TeacherProfile = ({ route, navigation }) => {
   const [snackbar, setSnackbar] = useState(false)
   const [teacherPosition, setTeacherPosition] = useState("");
   const [onUpdate, setOnUpdate] = useState(false)
+  const [subjects, setSubjects] = useState([]);
+
+  const [selectedItems, setSelectedItems] = useState(teacher.subjects);
 
   const onDismissSnackBar = () => setSnackbar(false);
 
+  useEffect(() => {
+    const unsubscribe = db.collection("subjects")
+        .onSnapshot((querySnapshot) => {
+          const subjectsArr = querySnapshot.docs.map((documentSnapshot) => {
+            return {
+              id: documentSnapshot.id,
+              ...documentSnapshot.data(),
+            };
+          });
+    
+          setSubjects(subjectsArr);
+        });
+        return () => unsubscribe();
+  }, []);
+
   const updatePosition = () => {
       db.collection("teachers").doc(teacher.id).update({
-          position: teacherPosition
+          position: teacherPosition,
+          subjects: selectedItems,
       }).then(() => {
           setSnackbar(true)
+          navigation.goBack()
       })
   }
+
+  const onSelectedItemsChange = (selectedItems) => {
+    // Set Selected Items
+    setSelectedItems(selectedItems);
+  };
 
   return (
     <ScrollView>
@@ -154,6 +179,26 @@ const TeacherProfile = ({ route, navigation }) => {
         <View style={{ padding: 30, marginTop: -30 }}>
           {onUpdate ? (
               <>
+                <MultiSelect
+                  hideTags
+                  items={subjects}
+                  uniqueKey="name"
+                  onSelectedItemsChange={onSelectedItemsChange}
+                  selectedItems={selectedItems}
+                  selectText="Pick Subjects"
+                  searchInputPlaceholderText="Search Items..."
+                  onChangeInput={(text) => console.log(text)}
+                  tagRemoveIconColor="#CCC"
+                  tagBorderColor="#CCC"
+                  tagTextColor="#CCC"
+                  selectedItemTextColor="#CCC"
+                  selectedItemIconColor="#CCC"
+                  itemTextColor="#000"
+                  displayKey="name"
+                  searchInputStyle={{color: '#CCC'}}
+                  submitButtonColor="#48d22b"
+                  submitButtonText="Done"
+                />
                 <TextInput
                     dense={true}
                     label={`Old Position (${teacher.position})`}
@@ -191,7 +236,7 @@ const TeacherProfile = ({ route, navigation }) => {
                 labelStyle={{ color: "white" }}
                 onPress={() => setOnUpdate(true)}
             >
-                Update Position
+                Update {teacher.fname}
             </Button>
           )}
         </View>
