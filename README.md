@@ -2,7 +2,7 @@
 ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
 
 PREREQUISIT:
-Download:
+Download this link:
 NODEJS (recommended) -> https://nodejs.org/en/
 GITBASH -> https://git-scm.com/downloads
 
