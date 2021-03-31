@@ -78,10 +78,11 @@ const SignUpScreen = ({route, navigation}) => {
             return;
           } else {
             fb.auth().createUserWithEmailAndPassword(emailVal, passwordVal).then(async (cred) => { 
+              let userRef = db.collection("users").doc(cred.user.uid);
               let studentRef = db.collection("students").doc(cred.user.uid);
               let teacherRef = db.collection("teachers").doc(cred.user.uid);
               let adminRef = db.collection("admin").doc(cred.user.uid);
-              let userRef = db.collection("users").doc(cred.user.uid);
+                
               const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
               userRef.set({
@@ -97,7 +98,13 @@ const SignUpScreen = ({route, navigation}) => {
                   type: type,
                   requestStatus: 1,
                   createdAt: timestamp()
-              });
+              }).then(() => {
+                fb.auth().signOut().then(() => {
+                  // Sign-out successful.
+                }).catch((error) => {
+                  // An error happened.
+                });
+              })
     
              if(enterAs === 'Student') {
                 studentRef.set({
@@ -142,7 +149,13 @@ const SignUpScreen = ({route, navigation}) => {
                     childId: cred.user.uid,
                     childLrn: lrnVal,
                     createdAt: timestamp()
-                });
+                }).then(() => {
+                  fb.auth().signOut().then(() => {
+                    // Sign-out successful.
+                  }).catch((error) => {
+                    // An error happened.
+                  });
+                })
                 });
              } else if(enterAs === 'Teacher') {
                 teacherRef.set({
@@ -381,6 +394,8 @@ const SignUpScreen = ({route, navigation}) => {
                               style={{marginTop: 10}}
                               label="Guardian Contact"
                               onChangeText={(gContact) => setGuardianContact(gContact)}
+                              maxLength={11}
+                              keyboardType='numeric'
                           />
                         </>
                     )

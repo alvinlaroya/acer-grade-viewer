@@ -180,15 +180,17 @@ const MyGrades = ({ route, navigation }) => {
               {level === "Grade11" || level === "Grade12" ? (
                 <></>
               ) : (
+               average1st.length > 0 && (
                 <DataTable.Row>
-                <DataTable.Cell>
-                    <Text style={{fontWeight: 'bold'}}>Average</Text>
-                </DataTable.Cell>
-                <DataTable.Cell numeric>
-                  {(average1st.reduce((a, b) => a + b, 0) / average1st.length).toFixed(2)}
-                </DataTable.Cell>
-                <DataTable.Cell numeric></DataTable.Cell>
-              </DataTable.Row>
+                  <DataTable.Cell>
+                      <Text style={{fontWeight: 'bold'}}>Average</Text>
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric>
+                    {(average1st.reduce((a, b) => a + b, 0) / average1st.length).toFixed(2)}
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric></DataTable.Cell>
+                </DataTable.Row>
+               )
               )}
             </DataTable>
           )}
@@ -401,7 +403,7 @@ const MyGrades = ({ route, navigation }) => {
                 average4th.length > 0 && (
                   <DataTable.Row>
                     <DataTable.Cell>
-                      <Text style={{fontWeight: 'bold'}}>2nd Seme. Average</Text>
+                      <Text style={{fontWeight: 'bold'}}>2nd Sem. Average</Text>
                     </DataTable.Cell>
                     <DataTable.Cell numeric>
                       {((average3rd.reduce((a, b) => a + b, 0) + average4th.reduce((a, b) => a + b, 0)) / (average1st.length + average4th.length)).toFixed(2)}
@@ -410,15 +412,17 @@ const MyGrades = ({ route, navigation }) => {
                   </DataTable.Row>
                 )
               ) : (
-                <DataTable.Row>
-                <DataTable.Cell>
-                  <Text style={{fontWeight: 'bold'}}>Average</Text>
-                </DataTable.Cell>
-                <DataTable.Cell numeric>
-                  {(average4th.reduce((a, b) => a + b, 0) / average4th.length).toFixed(2)}
-                </DataTable.Cell>
-                <DataTable.Cell numeric></DataTable.Cell>
-              </DataTable.Row>
+                average4th.length > 0 && (
+                  <DataTable.Row>
+                    <DataTable.Cell>
+                      <Text style={{fontWeight: 'bold'}}>Average</Text>
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric>
+                      {(average4th.reduce((a, b) => a + b, 0) / average4th.length).toFixed(2)}
+                    </DataTable.Cell>
+                    <DataTable.Cell numeric></DataTable.Cell>
+                  </DataTable.Row>
+                )
               )}
             </DataTable>
           )}
