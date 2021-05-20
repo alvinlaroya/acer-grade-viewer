@@ -148,8 +148,8 @@ class EnrolledStudents extends Component {
         <Appbar.Header style={{ marginTop: 1, backgroundColor: "white", marginTop: Constants.statusBarHeight}}>
           <Appbar.BackAction onPress={() => this.props.navigation.goBack()}/>
           <Appbar.Content
-            title="Students Requests"
-            subtitle={`(${this.state.teachers.length}) Pending students submitted account request`}
+            title="Students Enrolled"
+            subtitle={`(${this.state.teachers.length}) enrolled students`}
           />
         </Appbar.Header>
         {this.state.teachers.length > 0 ? (
@@ -181,7 +181,7 @@ class EnrolledStudents extends Component {
           <View
             style={{ justifyContent: "center", alignItems: "center", flex: 1 }}
           >
-            <Text>No Teachers to display</Text>
+            <Text>No students to display</Text>
           </View>
         )}
         <Snackbar

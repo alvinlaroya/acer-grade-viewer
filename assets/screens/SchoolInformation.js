@@ -50,7 +50,7 @@ const SchoolInfo = ({navigation}) => {
             </View>
             <View style={{padding: 10}}> 
                 <View style={{backgroundColor: 'blue', height: 70, justifyContent: 'center', borderRadius: 20}}>
-                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>VISION</Text>
+                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>DEPED VISION</Text>
                 </View>
                 <Text style={{...styles.vissionText, marginTop: 20}}>We dream of Filipinos</Text>
                 <Text style={styles.vissionText}>who passionately love their country</Text>
@@ -75,7 +75,7 @@ const SchoolInfo = ({navigation}) => {
             </View>
             <View style={{marginTop: 30, padding: 10}}>
                 <View style={{backgroundColor: 'red', height: 70, justifyContent: 'center', borderRadius: 20}}>
-                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>CORE VALUES</Text>
+                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>DEPED CORE VALUES</Text>
                 </View>
                 <Text style={{...styles.coreText, marginTop: 20}}>Maka-Diyos</Text>
                 <Text style={styles.coreText}>Maka-tao</Text>
@@ -84,7 +84,7 @@ const SchoolInfo = ({navigation}) => {
             </View>
             <View style={{marginBottom: 20, marginTop: 30, padding: 10}}>
              <View style={{backgroundColor: 'blue', height: 70, justifyContent: 'center', borderRadius: 20}}>
-                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>MISSION</Text>
+                    <Text style={{textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: 'white'}}>DEPED MISSION</Text>
                 </View>
                 <Text style={{...styles.missionText, marginTop: 20}}>To protect and promote the right of every Filipino</Text>
                 <Text style={styles.missionText}>to quality, equitable, culture-based,</Text>

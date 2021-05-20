@@ -33,11 +33,10 @@ import "firebase/storage";
 
 const db = fb.firestore();
 
-const AddGrade = ({ route, navigation }) => {
-  const { sy, level, type } = route.params;
+const TeacherAddGradeScreen = ({ route, navigation }) => {
+  const { sy, level, subjectId, subject, teacherId} = route.params;
   const [snackbarMessage, setSnackbarMessage] = useState('Empty Subject. Please Enter Subject!');
   const [snackbarColor, setSnackbarColor] = useState("red");
-  const [teacher, setTeacher] = useState('');
   const [lrn, setLrn] = useState('');
   const [buttonLoading, setButtonLoading] = useState(false)
   const [studentInfo, setStudentInfo] = useState({
@@ -47,11 +46,8 @@ const AddGrade = ({ route, navigation }) => {
     lname: 'Student',
   });
   const [grade, setGrade] = useState(0);
-  const [stageType, setStageType] = useState('Select JR or SR');
-  const [subject, setSubject] = useState("");
   const [grading, setGrading] = useState("");
   const [allGrades, setAllGrades] = useState([]);
-  const [allSubjects, setAllSubjects] = useState([]);
 
   const [gradings, setGradings] = useState([
     [
@@ -67,52 +63,7 @@ const AddGrade = ({ route, navigation }) => {
         {id: 8, name: '4th Quarter', value: '4th'},
     ]
   ]);
-  const [subjects, setSubjects] = useState([]);
-  const [teachers, setTeachers] = useState([]);
   const [snackbarError, setSnackbarError] = useState(false);
-
-  useEffect(() => {
-    const unsubscribe = db.collection("teachers")
-      .onSnapshot((querySnapshot) => {
-        const trachersArr = querySnapshot.docs.map((documentSnapshot) => {
-          return {
-            id: documentSnapshot.id,
-            ...documentSnapshot.data(),
-          };
-        });
-
-        setTeachers(trachersArr);
-      });
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    let type = ""
-    if(level === "Grade1" || level === "Grade2" || level === "Grade3" || level === "Grade4" || level === "Grade5" || level === "Grade6") {
-      type = "elem"
-      setStageType(type)
-    } else if(level === "Grade7" || level === "Grade8" || level === "Grade9" || level === "Grade10") {
-      type = "jr"
-      setStageType(type)
-    } else {
-      type = "sr"
-      setStageType(type)
-    }
-    const unsubscribe = db.collection("subjects")
-        .where("type", "==", type)
-        .onSnapshot((querySnapshot) => {
-          const subjectsArr = querySnapshot.docs.map((documentSnapshot) => {
-            return {
-              id: documentSnapshot.id,
-              ...documentSnapshot.data(),
-            };
-          });
-    
-          setSubjects(subjectsArr);
-        });
-    return () => unsubscribe();
-  }, [])
 
   useEffect(() => {
     db.collection("students").where("lrn", "==", lrn)
@@ -137,31 +88,34 @@ const AddGrade = ({ route, navigation }) => {
   }, [lrn])
 
 
-
-  const saveGrade = () => {
+  const sendGrade = () => {
+    var thisLevel = false
+    if(level === "Grade11" || level === "Grade12") {
+        thisLevel = true
+    }
     const timestamp = firebase.firestore.FieldValue.serverTimestamp;
     if (subject === "") {
       setSnackbarError(true);
       setSnackbarMessage("Empty Subject. Please Enter Subject!")
       setSnackbarColor("red");
-    } else if(grade === 0) {
+    } else if (grade === 0) {
       setSnackbarError(true);
       setSnackbarMessage("Empty Grade. Please Enter Valid Number!")
-      setSnackbarColor("red")
+      setSnackbarColor("red");
     } else if(grading === "") {
       setSnackbarError(true);
       setSnackbarMessage("Empty Grading. Please Select One Grading Period!")
       setSnackbarColor("red")
-    }else {
+    } else {
       db.collection("grades")
         .add({
           lrn: lrn,
           studentName: `${studentInfo.fname} ${studentInfo.lname}`,
           level: level,
           sy: sy,
-          stageType: stageType,
+          stageType: thisLevel ? "sr" : "jr",
           subject: subject,
-          teacherId: teacher,
+          teacherId: teacherId,
           grade: Number(grade),
           grading: grading,
           createdAt: timestamp(),
@@ -173,17 +127,14 @@ const AddGrade = ({ route, navigation }) => {
             setSnackbarError(true);
             setSnackbarMessage("Saved Grade Successfuly!")
             setSnackbarColor("green");
-            setSubject('');
-            setTeacher('');
             setGrade(0);
-            setAllSubjects(oldSubjects => [...oldSubjects, subject])
             setAllGrades(oldArray => [...oldArray, {
               lrn: lrn,
               level: level,
               sy: sy,
-              stageType: stageType,
+              stageType: thisLevel ? "sr" : "jr",
               subject: subject,
-              teacherId: teacher,
+              teacherId: teacherId,
               grade: Number(grade),
               grading: grading,
               createdAt: seconds,
@@ -191,18 +142,13 @@ const AddGrade = ({ route, navigation }) => {
             /* sendNotificationToAllUsers(docRef.id, studentId) */
         });
     }
-  };
 
-
-  const sendGrade = () => {
     setButtonLoading(true)
     sendNotificationToAllUsers(allGrades, studentInfo.token)
     var studentRef = db.collection("students").doc(studentInfo.id)
-    allSubjects.map(sub => {
-      studentRef.update({
-        subjectsEnrolled: firebase.firestore.FieldValue.arrayUnion(sub)
+    studentRef.update({
+        subjectsEnrolled: firebase.firestore.FieldValue.arrayUnion(subject)
       });
-    })
   }
 
   async function sendNotificationToAllUsers(grades, token) {
@@ -266,7 +212,8 @@ const AddGrade = ({ route, navigation }) => {
                 <Text style={{fontSize: 18, fontWeight: 'bold'}}>Grade: {level}</Text>
                 <Text style={{fontSize: 18, fontWeight: 'bold'}}>School Year: {sy}</Text>
             </View>
-            <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 20}}>Student Name: {`${studentInfo.fname} ${studentInfo.lname}`}</Text>
+            <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 5}}>Student Name: {`${studentInfo.fname} ${studentInfo.lname}`}</Text>
+            <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 20}}>Subject: {subject}</Text>
             <TextInput
                 mode="outlined"
                 label="Student LRN"
@@ -275,29 +222,11 @@ const AddGrade = ({ route, navigation }) => {
                 onChangeText={(lrn) => setLrn(lrn)}
             />
             <Picker
-                selectedValue={subject}
-                style={{ height: 50, width: '100%', marginTop: 20}}
-                onValueChange={(itemValue, itemIndex) => setSubject(itemValue)}>
-                    <Picker.Item label="Select Subject" />
-                    {subjects.map(subject => (
-                        <Picker.Item label={subject.name} value={subject.name} key={subject.id}/>
-                    ))}
-            </Picker>
-            <Picker
-                selectedValue={teacher}
-                style={{ height: 50, width: '100%', marginTop: 20}}
-                onValueChange={(itemValue, itemIndex) => setTeacher(itemValue)}>
-                    <Picker.Item label="Select Teacher" enabled={false} />
-                    {teachers.map(teacher => (
-                        <Picker.Item label={`${teacher.fname} ${teacher.lname} (${teacher.position})`} value={teacher.id} key={teacher.id} />
-                    ))}
-            </Picker>
-            <Picker
                 selectedValue={grading}
                 style={{ height: 50, width: '100%', marginTop: 20}}
                 onValueChange={(itemValue, itemIndex) => setGrading(itemValue)}>
                     <Picker.Item label="Select Grading/Quarter" value="Select Grading" enabled={false} />
-                    {stageType === "sr" ? (
+                    {level === "Grade11" || level === "Grade12" ? (
                         gradings[1].map(type => (
                             <Picker.Item label={type.name} value={type.value} key={type.id}/>
                         ))
@@ -314,17 +243,7 @@ const AddGrade = ({ route, navigation }) => {
                 keyboardType='numeric'
             />
             <Button
-                icon="content-save-outline"
-                mode="contained"
-                contentStyle={{ height: 55 }}
-                color="#188ad6"
-                style={{ marginTop: 10, borderRadius: 25 }}
-                onPress={saveGrade}
-            >
-                Save Grade
-            </Button>
-            <Button
-                icon="send"
+                content-save-outline
                 mode="contained"
                 loading={buttonLoading == true ? true : false} 
                 contentStyle={{ height: 55 }}
@@ -332,7 +251,7 @@ const AddGrade = ({ route, navigation }) => {
                 style={{ marginTop: 10, borderRadius: 25 }}
                 onPress={sendGrade}
             >
-                Send Grade
+                Save Grade
             </Button>
         </View>
       </View>
@@ -353,7 +272,7 @@ const AddGrade = ({ route, navigation }) => {
   );
 };
 
-export default AddGrade;
+export default TeacherAddGradeScreen;
 
 const styles = StyleSheet.create({
   container: {

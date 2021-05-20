@@ -31,12 +31,14 @@ import AddGrade from './assets/screens/AddGrade';
 import MyGrades from './assets/screens/MyGrades';
 import StudentMyGrades from './assets/screens/StudentMyGrades';
 import CommentsList from './assets/screens/CommentsList';
+import SignupStudentScreen from './assets/screens/SignupStudentScreen';
 import AddComment from './assets/screens/AddComment';
 import UpdateGrade from './assets/screens/UpdateGrade';
 import ViewComment from './assets/screens/ViewComment';
 import TeachersList from './assets/screens/TeachersList';
 import SubjectsUnderTeacher from './assets/screens/SubjectsUnderTeacher';
 import StudentsUnderSubjectsTeacher from './assets/screens/StudentsUnderSubjectsTeacher';
+import TeacherAddGradeScreen from './assets/screens/TeacherAddGradeScreen';
 import TeacherProfile from './assets/screens/TeacherProfile';
 import Teachers from './assets/screens/Teachers';
 import EnrolledStudents from './assets/screens/EnrolledStudents';
@@ -128,6 +130,8 @@ const App = ({navigation}) => {
           <Stack.Screen name="EnrolledStudents" component={EnrolledStudents} options={{ headerShown: false }}/>
           <Stack.Screen name="Teachers" component={Teachers} options={{ headerShown: false }}/>
           <Stack.Screen name="TeacherProfile" component={TeacherProfile} options={{ headerShown: false }}/>
+          <Stack.Screen name="SignupStudentScreen" component={SignupStudentScreen} options={{ headerShown: false }}/>
+          <Stack.Screen name="TeacherAddGradeScreen" component={TeacherAddGradeScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </>

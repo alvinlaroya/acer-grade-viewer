@@ -36,10 +36,10 @@ const Teachers = ({ route, navigation }) => {
   }, []);
   const renderAgency = ({ item, index }) => (
         <List.Item
-            title={item.fname}
+            title={`${item.fname} ${item.lname}`}
             titleStyle={{fontWeight: 'bold'}}
             /* description={moment.unix(item.createdAt.seconds).format("DD MMM YYYY hh:ss A")} */
-            description={`All asigned teachers in ${item.fname}`}
+            description={item.email}
             onPress={() => navigation.navigate("TeacherProfile", {
                 teacher: item,
                 type: type

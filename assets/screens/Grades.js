@@ -44,9 +44,9 @@ const Grades = ({ route, navigation }) => {
             title={`SY: ${item.year}`}
             titleStyle={{fontWeight: 'bold'}}
             /* description={moment.unix(item.createdAt.seconds).format("DD MMM YYYY hh:ss A")} */
-            description={item.enrolled > 0 ? `${item.enrolled} Enrolled Students` : `No Enrolled Students Yet`}
+            description={`List of enrolled students in ${item.year}`}
             left={props => <List.Icon {...props} icon="notebook-outline" />}
-            onPress={() => navigation.navigate("GradesUnderSY", {sy: item.year, type: type, userId: userId})}
+            onPress={() => navigation.navigate("GradesUnderSY", {sy: item.year, type: type, userId: userId, syId: item.id})}
         />
     )
 

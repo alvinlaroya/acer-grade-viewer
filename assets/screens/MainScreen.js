@@ -94,11 +94,11 @@ const MainScreen = ({route, navigation}) => {
         <>
             <StatusBar style="dark"/>
             <View style={{padding: 30, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View>
-                    <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 5}}>{fname} {lname} ({type})</Text>
+                <View style={{width: '80%'}}>
+                    <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 5,}}>{fname} {lname} ({type})</Text>
                     <Text style={{fontSize: 12, marginTop: 5}}>{email}</Text>
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '20%'}}>
                     <Avatar.Image size={44} source={{uri: profile !== '' ? profile : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHe330tYy_U_3UN0DmUSbGoFbXigdIQglDAA&usqp=CAU'}} />
                     <IconButton
                         icon="logout"

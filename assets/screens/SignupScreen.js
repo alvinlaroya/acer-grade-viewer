@@ -119,9 +119,26 @@ const SignUpScreen = ({route, navigation}) => {
                     createdAt: timestamp()
                 });
 
-                fb.auth().createUserWithEmailAndPassword(guardianEmail, "aceguardianpassword").then(async (guardianCred) => { 
-                  let guardianUserRef = db.collection("users").doc(guardianCred.user.uid);
-                  guardianUserRef.set({
+                if(guardianEmail !==  "") {
+                  fb.auth().createUserWithEmailAndPassword(guardianEmail, "aceguardianpassword").then(async (guardianCred) => { 
+                    let guardianUserRef = db.collection("users").doc(guardianCred.user.uid);
+                    guardianUserRef.set({
+                        userId: guardianCred.user.uid,
+                        fname: guardianFname,
+                        lname: guardianLname,
+                        email: guardianEmail,
+                        address: guardianAddress,
+                        profile: '',
+                        email: guardianEmail,
+                        contact: guardianContact,
+                        accepted: false,
+                        type: 'Guardian',
+                        requestStatus: 1,
+                        createdAt: timestamp()
+                    });
+  
+                    let guardianRef = db.collection("guardians").doc(guardianCred.user.uid);
+                    guardianRef.set({
                       userId: guardianCred.user.uid,
                       fname: guardianFname,
                       lname: guardianLname,
@@ -130,33 +147,18 @@ const SignUpScreen = ({route, navigation}) => {
                       profile: '',
                       email: guardianEmail,
                       contact: guardianContact,
-                      accepted: false,
-                      type: 'Guardian',
-                      requestStatus: 1,
+                      childId: cred.user.uid,
+                      childLrn: lrnVal,
                       createdAt: timestamp()
+                  }).then(() => {
+                    fb.auth().signOut().then(() => {
+                      // Sign-out successful.
+                    }).catch((error) => {
+                      // An error happened.
+                    });
+                  })
                   });
-
-                  let guardianRef = db.collection("guardians").doc(guardianCred.user.uid);
-                  guardianRef.set({
-                    userId: guardianCred.user.uid,
-                    fname: guardianFname,
-                    lname: guardianLname,
-                    email: guardianEmail,
-                    address: guardianAddress,
-                    profile: '',
-                    email: guardianEmail,
-                    contact: guardianContact,
-                    childId: cred.user.uid,
-                    childLrn: lrnVal,
-                    createdAt: timestamp()
-                }).then(() => {
-                  fb.auth().signOut().then(() => {
-                    // Sign-out successful.
-                  }).catch((error) => {
-                    // An error happened.
-                  });
-                })
-                });
+                }
              } else if(enterAs === 'Teacher') {
                 teacherRef.set({
                     userId: cred.user.uid,
@@ -320,6 +322,7 @@ const SignUpScreen = ({route, navigation}) => {
                           dense={true}
                           style={{marginTop: 10}}
                           label="LRN"
+                          maxLength={12}
                           onChangeText={(lrn) => setLrn(lrn)}
                         />
                       )
@@ -380,7 +383,7 @@ const SignUpScreen = ({route, navigation}) => {
                            <TextInput
                               dense={true}
                               style={{marginTop: 10}}
-                              label="Guardian Email"setGuardian
+                              label="Guardian Email (Optional)"setGuardian
                               onChangeText={(gEmail) => setGuardianEmail(gEmail)}
                           />
                            <TextInput

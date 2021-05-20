@@ -8,7 +8,7 @@ import { fb } from "../../firebase";
 const db = fb.firestore();
 
 const GradesList = ({ route, navigation }) => {
-  const { sy, stage, type } = route.params;
+  const { sy, stage, type, syId, stageName } = route.params;
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,6 +17,7 @@ const GradesList = ({ route, navigation }) => {
   useEffect(() => {
     const unsubscribe = db
       .collection("students")
+      .where("enrolled_in", "array-contains", `${syId}${stageName}`)
       .onSnapshot((querySnapshot) => {
         const studentsArr = querySnapshot.docs.map((documentSnapshot) => {
           return {

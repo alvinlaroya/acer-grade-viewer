@@ -8,7 +8,7 @@ import { fb } from "../../firebase";
 const db = fb.firestore();
 
 const GradesUnderSY = ({route, navigation }) => {
-  const { sy, type, userId } = route.params;
+  const { sy, type, userId, syId } = route.params;
   const [school_year, setSchoolYear] = useState([]);
   const [stage, setStage] = useState([
     {name: 'Grade1'},
@@ -67,7 +67,9 @@ const GradesUnderSY = ({route, navigation }) => {
                   id: userId,
                   sy: sy,
                   level: item.name,
-                  type: type
+                  type: type,
+                  syId: syId,
+                  stageName: item.name
                 })
               } else if(type === "Guardian") {
                 navigation.navigate("StudentMyGrades", {
@@ -86,7 +88,9 @@ const GradesUnderSY = ({route, navigation }) => {
                 navigation.navigate("GradesList", {
                   sy: sy,
                   stage: item.name,
-                  type: type
+                  type: type,
+                  syId: syId,
+                  stageName: item.name
                 })
               }
             }}

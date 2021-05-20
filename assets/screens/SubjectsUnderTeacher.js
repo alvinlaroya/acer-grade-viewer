@@ -40,13 +40,15 @@ const SubjectsUnderTeacher = ({ route, navigation }) => {
             title={item}
             titleStyle={{fontWeight: 'bold'}}
             /* description={moment.unix(item.createdAt.seconds).format("DD MMM YYYY hh:ss A")} */
-            description={`All asigned teachers in ${level}`}
+            description={`All students enrolled in ${item}`}
             left={props => <List.Icon {...props} icon="notebook-outline" />}
             onPress={() => navigation.navigate("StudentsUnderSubjectsTeacher", {
               subject: item,
+              subjectId: item.id,
               teacherId: id,
               sy: sy,
-              level: level
+              level: level,
+              subjects: subjects,
             })}
         />
     )
@@ -60,7 +62,7 @@ const SubjectsUnderTeacher = ({ route, navigation }) => {
       <StatusBar style="light" backgroundColor="black" />
       <Appbar.Header style={{ marginTop: 1, backgroundColor: "white", marginTop: Constants.statusBarHeight }}>
         <Appbar.BackAction onPress={_goBack} />
-        <Appbar.Content title="Subjects" subtitle="All subjects with assigned teachers" />
+        <Appbar.Content title="Subjects" subtitle="All subjects assigned to you" />
       </Appbar.Header>
       {subjects.length > 0 ? (
           <FlatList

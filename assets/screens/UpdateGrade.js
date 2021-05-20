@@ -35,6 +35,7 @@ const db = fb.firestore();
 const UpdateGrade = ({ route, navigation }) => {
   const { gradeParam } = route.params;
   const [snackbar, setSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const [grade, setGrade] = useState(0);
   const [subject, setSubject] = useState(gradeParam.subject);
   const [subjects, setSubjects] = useState([]);
@@ -63,8 +64,29 @@ const UpdateGrade = ({ route, navigation }) => {
           subject: subject
       }).then(() => {
         setSnackbar(true);
+        setSnackbarMessage("Grade Updated Successfuly!")
       })
   }
+
+  const deleteGrade = (item) => {
+    Alert.alert(
+      "Delete Grade",
+      "Are you sure you want to delete?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => {
+          db.collection("grades").doc(item.id).delete().then(() => {
+            setSnackbar(true);
+            setSnackbarMessage("Grade Deleted Successfuly!")
+          })
+        }}
+      ]
+    );
+}
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
@@ -84,6 +106,7 @@ const UpdateGrade = ({ route, navigation }) => {
                 mode="outlined"
                 label="Enter New Grade"
                 onChangeText={(grade) => setGrade(grade)}
+                keyboardType='numeric'
             />
             <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: 25, marginBottom: -25}}>Subject:</Text>
             <Picker
@@ -95,6 +118,16 @@ const UpdateGrade = ({ route, navigation }) => {
                         <Picker.Item key={index} label={subject.name} value={subject.name} />
                     ))}
             </Picker>
+            <Button
+                icon="delete-outline"
+                mode="contained"
+                contentStyle={{ height: 55 }}
+                color="red"
+                style={{ marginTop: 10, borderRadius: 25 }}
+                onPress={() => deleteGrade(gradeParam)}
+            >
+                Delete this Grade
+            </Button>
             <Button
                 icon="content-save-outline"
                 mode="contained"
@@ -118,7 +151,7 @@ const UpdateGrade = ({ route, navigation }) => {
           },
         }}
       >
-        Grade Updated Successfuly!
+        {snackbarMessage}
       </Snackbar>
     </View>
   );

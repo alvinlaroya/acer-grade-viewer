@@ -38,7 +38,7 @@ import "firebase/storage";
 const db = fb.firestore();
 
 const StudentMyGrades = ({ route, navigation }) => {
-  const { id, level, sy, type } = route.params;
+  const { id, level, sy, type, syId, stageName } = route.params;
   const name = firebase.auth().currentUser.displayName;
   const profile = firebase.auth().currentUser.photoURL;
   const [parentInfo, setParentInfo] = useState({});
@@ -50,6 +50,9 @@ const StudentMyGrades = ({ route, navigation }) => {
   const [grades, setGrades] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [infoIsloading, setInfoIsLoading] = useState(true);
+
+  const [snackbar, setSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessages] = useState(false);
 
   useEffect(() => {
     type === "Student" ? fetchAllWithStudent(id) : fetchAllWithGuadian();
@@ -130,14 +133,36 @@ const StudentMyGrades = ({ route, navigation }) => {
       });
   };
 
-  const onDismissSnackBar = () => setSnackbarError(false);
+  const onDismissSnackBar = () => setSnackbar(false);
+
+  const enroll = () => {
+    let studentRef = db.collection('students').doc(id);
+    Alert.alert(
+      "Are you sure?",
+      `You want to enroll to ${stageName} ?`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => {
+          studentRef.update({
+            enrolled_in: firebase.firestore.FieldValue.arrayUnion(`${syId}${stageName}`),
+          });
+          setSnackbarMessages(`You successfully enrolled in ${stageName}. SY: ${syId} - ${parseInt(syId) + 1}`)
+          setSnackbar(true)
+        }}
+      ]
+    );
+  }
 
   return (
     <>
       <StatusBar style="light" backgroundColor="black" />
       <ScrollView style={{ backgroundColor: "white", marginTop: Constants.statusBarHeight }}>
         <View style={{ backgroundColor: "white" }}>
-          <View style={{ backgroundColor: "white" }}>
+          <View style={{ backgroundColor: "white", justifyContent: 'space-between', flexDirection: 'row' }}>
             <IconButton
               icon="arrow-left"
               color="gray"
@@ -145,6 +170,9 @@ const StudentMyGrades = ({ route, navigation }) => {
               onPress={() => navigation.goBack(null)}
               style={{ marginTop: 10 }}
             />
+            <TouchableOpacity onPress={enroll}>
+              <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: 15, marginRight: 15}}>Enroll</Text>
+            </TouchableOpacity>
           </View>
           <View style={{ padding: 20, marginTop: -10 }}>
             <View
@@ -519,6 +547,19 @@ const StudentMyGrades = ({ route, navigation }) => {
         <View>
         </View>
       </ScrollView>
+      <Snackbar
+        visible={snackbar}
+        onDismiss={onDismissSnackBar}
+        style={{ backgroundColor: "green" }}
+        action={{
+          label: "Close",
+          onPress: () => {
+            // Do something
+          },
+        }}
+      >
+        {snackbarMessage}
+      </Snackbar>
     </>
   );
 };

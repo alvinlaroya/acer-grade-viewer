@@ -5,12 +5,13 @@ import { StatusBar } from "expo-status-bar";
 import Constants from 'expo-constants';
 import moment from "moment";
 import { fb } from "../../firebase";
+import { TouchableOpacity } from "react-native-gesture-handler";
 const db = fb.firestore();
 
 const student = require('../student.png')
 
 const StudentsUnderSubjectsTeacher = ({ route, navigation }) => {
-  const { subject, teacherId, sy, level} = route.params;
+  const { subject, subjectId, teacherId, sy, level, subjects} = route.params;
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,7 +24,7 @@ const StudentsUnderSubjectsTeacher = ({ route, navigation }) => {
       .where("teacherId", "==", teacherId)
       .where("sy", "==", sy)
       .where("level", "==", level)
-      .orderBy("name", "asc")
+      .orderBy("studentName", "asc")
       .onSnapshot((querySnapshot) => {
         const studentsArr = querySnapshot.docs.map((documentSnapshot) => {
           return {
@@ -32,6 +33,7 @@ const StudentsUnderSubjectsTeacher = ({ route, navigation }) => {
           };
         });
         setStudents(studentsArr);
+        console.log(studentsArr)
         setIsLoading(false);
       });
 
@@ -41,7 +43,7 @@ const StudentsUnderSubjectsTeacher = ({ route, navigation }) => {
   const renderStudents = ({ item, index }) => (
     <>
       <List.Item
-        title={item.name}
+        title={item.studentName}
         titleStyle={{ fontWeight: "bold", marginLeft: 10 }}
         /* description={moment.unix(item.createdAt.seconds).format("DD MMM YYYY hh:ss A")} */
         description={`LRN: ${item.lrn}`}
@@ -112,6 +114,19 @@ const StudentsUnderSubjectsTeacher = ({ route, navigation }) => {
           <Text>No students to display</Text>
         </View>
       )}
+      <View style={{position: 'absolute', bottom: 20, right: 20}}>  
+        <TouchableOpacity onPress={() => navigation.navigate("TeacherAddGradeScreen", {
+          sy: sy,
+          level: level,
+          subject: subject,
+          subjectId: subjectId,
+          teacherId: teacherId
+        })}>
+          <View style={{backgroundColor: 'green', height: 40, width: 90, alignItems: 'center', justifyContent: 'center', borderRadius: 10}}>
+            <Text style={{fontSize: 15, color: 'white', fontWeight: 'bold'}}>Add Grade</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </>
   );
 };

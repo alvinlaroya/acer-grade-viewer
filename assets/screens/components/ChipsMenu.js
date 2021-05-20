@@ -112,6 +112,13 @@ const ChipsMenu = (props) => {
               {adminReq > 0 && (<Badge style={{marginTop: -34, marginRight: 10}} size={15}>{adminReq}</Badge>)}
             </View>
             <Chip
+              icon="human-child"
+              onPress={() => navigation.navigate("SignupStudentScreen")}
+              style={{ marginRight:15, height: 35 }}
+            >
+              Register Student
+            </Chip>
+            <Chip
               icon="account-key"
               onPress={() => navigation.navigate("AppToken")}
               style={{ marginRight:15, height: 35 }}
