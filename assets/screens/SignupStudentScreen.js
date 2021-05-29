@@ -114,7 +114,7 @@ const SignupStudentScreen = ({ navigation }) => {
               fb.auth()
                 .createUserWithEmailAndPassword(
                   guardianEmail,
-                  "aceguardianpassword"
+                  "sfisguardian"
                 )
                 .then(async (guardianCred) => {
                   let guardianUserRef = db
@@ -291,7 +291,7 @@ const SignupStudentScreen = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED
+          SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED
           SCHOOL SPED CENTER
         </Text>
         <View>

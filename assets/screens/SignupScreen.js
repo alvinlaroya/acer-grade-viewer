@@ -120,7 +120,7 @@ const SignUpScreen = ({route, navigation}) => {
                 });
 
                 if(guardianEmail !==  "") {
-                  fb.auth().createUserWithEmailAndPassword(guardianEmail, "aceguardianpassword").then(async (guardianCred) => { 
+                  fb.auth().createUserWithEmailAndPassword(guardianEmail, "sfisguardian").then(async (guardianCred) => { 
                     let guardianUserRef = db.collection("users").doc(guardianCred.user.uid);
                     guardianUserRef.set({
                         userId: guardianCred.user.uid,
@@ -286,7 +286,7 @@ const SignUpScreen = ({route, navigation}) => {
         </Appbar>
           <View style={styles.formContainer}>
               <Text style={{fontSize: 11, marginBottom: 15, color: 'black', textAlign: 'center'}}>
-                  ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER {enterAs}
+                  SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER {enterAs}
               </Text>
              <View>
                  <TouchableOpacity  onPress={pickImage}>
@@ -383,7 +383,7 @@ const SignUpScreen = ({route, navigation}) => {
                            <TextInput
                               dense={true}
                               style={{marginTop: 10}}
-                              label="Guardian Email (Optional)"setGuardian
+                              label="Guardian Email"setGuardian
                               onChangeText={(gEmail) => setGuardianEmail(gEmail)}
                           />
                            <TextInput

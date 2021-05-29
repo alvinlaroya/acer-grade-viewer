@@ -38,7 +38,7 @@ function SplashScreen({ navigation }) {
   }, []);
 
   const fetchAppToken = () => {
-    var tokenRef = db.collection("app_token").doc("acetoken");
+    var tokenRef = db.collection("app_token").doc("sfis");
     tokenRef
       .get()
       .then((doc) => {
@@ -127,8 +127,8 @@ function SplashScreen({ navigation }) {
       <View>
         <Text style={{ fontSize: 25, fontWeight: "bold" }}>I am</Text>
       </View>
-      <View style={{ padding: 30, flexDirection: "row" }}>
-        <View style={{ width: "33.3%" }}>
+      <View style={{ padding: 30, width: "100%"}}>
+        <View style={{ width: "100%" }}>
           <Button
             icon="human-child"
             mode="outlined"
@@ -145,7 +145,7 @@ function SplashScreen({ navigation }) {
             Student
           </Button>
         </View>
-        <View style={{ width: "33.3%", marginLeft: 10, marginRight: 10 }}>
+        <View style={{ width: "100%", marginTop: 10 }}>
           <Button
             icon="briefcase-account"
             mode="outlined"
@@ -162,7 +162,7 @@ function SplashScreen({ navigation }) {
             Teacher
           </Button>
         </View>
-        <View style={{ width: "33.3%" }}>
+        <View style={{ width: "100%", marginTop: 10}}>
           <Button
             icon="shield-account"
             mode="outlined"
@@ -197,7 +197,7 @@ function SplashScreen({ navigation }) {
               textAlign: "center",
             }}
           >
-            ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED
+            SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED
             SCHOOL SPED CENTER
           </Text>
         </View>
@@ -262,7 +262,7 @@ function SplashScreen({ navigation }) {
   ) : (
     <View style={styles.container}>
       <Image source={logo} style={{height: 90, width: 90}}></Image>
-      <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 8, color: 'white'}}>Ace Grade Viewer</Text>
+      <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 8, color: 'white'}}>SFIS Mobile Grade Viewer</Text>
     </View>
   )
 }

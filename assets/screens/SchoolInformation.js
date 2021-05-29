@@ -44,7 +44,7 @@ const SchoolInfo = ({navigation}) => {
                         fontSize: 17, fontWeight: 'bold',
                         marginTop: 20
                     }}>
-                        ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
+                        SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
                     </Text>
                 </View>
             </View>

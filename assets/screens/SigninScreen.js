@@ -23,7 +23,7 @@ const SignInScreen = ({props, navigation}) => {
             navigation.navigate("WelcomeBeforeLogin")
           }).catch(function(signInError){
             Alert.alert(
-              'ACE',
+              'SFIS',
               `${signInError.toString()}`,
               [
                 { text: 'OK', onPress: () => console.log('OK Pressed') }
@@ -41,9 +41,9 @@ const SignInScreen = ({props, navigation}) => {
           <StatusBar style="dark" barStyle="dark-content" StatusBarAnimation="slide" />
           <View style={styles.formContainer}>
               <Image source={logo} style={styles.logo}></Image>
-              <Text style={styles.title}>ACE</Text>
+              <Text style={styles.title}>SFIS</Text>
               <Text style={{fontSize: 11, marginBottom: 15, color: 'black', textAlign: 'center'}}>
-                  ACE ONLINE GRADE VIEWER MOBILE APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
+                  SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
               </Text>
               <View style={styles.SectionStyle}>
                 <MaterialCommunityIcons name="email-outline" color="black" size={25} style={styles.iconInput} />

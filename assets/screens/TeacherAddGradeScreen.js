@@ -172,7 +172,7 @@ const TeacherAddGradeScreen = ({ route, navigation }) => {
       to: userToken,
       sound: 'default',
       title: `Grade Summary`,
-      body: `Hello! ${great}, You have received your grade summary today. Check your ace grade viewer app now!`,
+      body: `Hello! ${great}, You have received your grade summary today. Check your sfis mobile grade viewer app now!`,
       badge: 1,
       data: {grades},
     };

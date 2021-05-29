@@ -28,11 +28,11 @@ const CardListButton = (props) => {
           <Title style={{ fontWeight: "bold" }}>STUDENT GRADES</Title>
         </Card.Content>
         <Card.Cover
-          blurRadius={1}
+          /* blurRadius={1} */
           style={{ marginTop: 10 }}
           source={{
             uri:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFlbXPP-7Dmxf8gPGOaUj4fKUTNmOMUglOCA&usqp=CAU",
+              "http://www.aftabhussain.com/images/report_card.jpg?fbclid=IwAR1riRvqyhHIaRiSsnsCRjk4tz7llB99Rmx3ZHVFx4bTqANfV1yWMZis5u0",
           }}
         />
       </Card>
@@ -48,11 +48,11 @@ const CardListButton = (props) => {
           <Title style={{ fontWeight: "bold" }}>SUBJECTS</Title>
         </Card.Content>
         <Card.Cover
-          blurRadius={1}
+          /* blurRadius={1} */
           style={{ marginTop: 10 }}
           source={{
             uri:
-              "https://image.freepik.com/free-vector/background-with-collection-different-school-subjects-study_160450-67.jpg",
+              "https://prepskills.com/wp-content/uploads/2018/07/SAT-Subject-Tests.jpg?fbclid=IwAR1heeg-cVNRDBNP7YLCwfwWVBdGvIg5DwTRpWrw_QzdeTmvazhy-I7jFYQ",
           }}
         />
       </Card>
@@ -68,11 +68,11 @@ const CardListButton = (props) => {
           <Title style={{ fontWeight: "bold" }}>TEACHERS</Title>
         </Card.Content>
         <Card.Cover
-          blurRadius={1}
+          /* blurRadius={1} */
           style={{ marginTop: 10 }}
           source={{
             uri:
-              "https://img.freepik.com/free-vector/teacher-front-chalkboard-with-copy-space-your-text_38747-184.jpg?size=626&ext=jpg",
+              "http://clipart-library.com/newimages/teacher-clip-art-3.jpg",
           }}
         />
       </Card>
@@ -88,11 +88,11 @@ const CardListButton = (props) => {
           <Title style={{ fontWeight: "bold" }}>SCHOOL YEAR</Title>
         </Card.Content>
         <Card.Cover
-          blurRadius={1}
+          /* blurRadius={1} */
           style={{ marginTop: 10 }}
           source={{
             uri:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGp5bfpVJB-Ef1ovg-RdpzlFO2bYw_WL9o_Q&usqp=CAU",
+              "https://www.rd.com/wp-content/uploads/2017/07/Heres-Why-The-School-Year-Doesnt-Start-in-January-ft.jpg?w=1000&fbclid=IwAR0vUPnCm53y6TD40N1Cx_0das9kZSednO7P2c-ilrkdEjgGZcYUCASrq-M",
           }}
         />
       </Card>
@@ -108,7 +108,7 @@ const CardListButton = (props) => {
             <Title style={{ fontWeight: "bold" }}>View Comments</Title>
           </Card.Content>
           <Card.Cover
-            blurRadius={1}
+            /* blurRadius={1} */
             style={{ marginTop: 10 }}
             source={{
               uri:
@@ -128,11 +128,11 @@ const CardListButton = (props) => {
           <Title style={{ fontWeight: "bold" }}>School Information</Title>
         </Card.Content>
         <Card.Cover
-          blurRadius={1}
+          /* blurRadius={1} */
           style={{ marginTop: 10 }}
           source={{
             uri:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ39sDhZ9bOcNS8K8AyC7zLd4EaCZJ8ROeBrA&usqp=CAU",
+              "https://www.stannespatnacity.in/wp-content/uploads/2016/12/schoolinfo2.png?fbclid=IwAR2YW6JZ9-Z_wWiqQKfgJGVQilWGEUg7-fhj62UPwW78Pov4NPmAXugWe2o",
           }}
         />
         

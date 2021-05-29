@@ -23,7 +23,7 @@ const AppToken = ({ navigation }) => {
   }, []);
 
   const fetchAppToken = () => {
-    var tokenRef = db.collection("app_token").doc("acetoken");
+    var tokenRef = db.collection("app_token").doc("sfis");
     tokenRef
       .get()
       .then((doc) => {
