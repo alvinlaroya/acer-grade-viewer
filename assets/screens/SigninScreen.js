@@ -43,7 +43,7 @@ const SignInScreen = ({props, navigation}) => {
               <Image source={logo} style={styles.logo}></Image>
               <Text style={styles.title}>SFIS</Text>
               <Text style={{fontSize: 11, marginBottom: 15, color: 'black', textAlign: 'center'}}>
-                  SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
+                  SFIS MOBILE GRADE VIEWER
               </Text>
               <View style={styles.SectionStyle}>
                 <MaterialCommunityIcons name="email-outline" color="black" size={25} style={styles.iconInput} />

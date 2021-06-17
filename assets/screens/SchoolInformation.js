@@ -44,7 +44,7 @@ const SchoolInfo = ({navigation}) => {
                         fontSize: 17, fontWeight: 'bold',
                         marginTop: 20
                     }}>
-                        SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER
+                        SFIS MOBILE GRADE VIEWER
                     </Text>
                 </View>
             </View>

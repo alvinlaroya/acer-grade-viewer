@@ -1,15 +1,10 @@
 {
   "expo": {
-    "name": "ace-grade-viewer",
+    "name": "Mobile Grade Viewer",
     "slug": "ace-grade-viewer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/acelogo.png",
-    "splash": {
-      "image": "./assets/splash.jpg",
-      "resizeMode": "contain",
-      "backgroundColor": "#1991a1"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -26,7 +21,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.wazaskiller.acegradeviewer",
-      "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"

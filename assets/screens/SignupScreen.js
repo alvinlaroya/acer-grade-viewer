@@ -286,7 +286,7 @@ const SignUpScreen = ({route, navigation}) => {
         </Appbar>
           <View style={styles.formContainer}>
               <Text style={{fontSize: 11, marginBottom: 15, color: 'black', textAlign: 'center'}}>
-                  SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER {enterAs}
+                  SFIS MOBILE GRADE VIEWER
               </Text>
              <View>
                  <TouchableOpacity  onPress={pickImage}>

@@ -291,8 +291,7 @@ const SignupStudentScreen = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED
-          SCHOOL SPED CENTER
+          SFIS MOBILE GRADE VIEWER
         </Text>
         <View>
           <TouchableOpacity onPress={pickImage}>

@@ -130,7 +130,7 @@ const MainScreen = ({route, navigation}) => {
                 <CardListButton type={type} userId={userId}/>
             </ScrollView>
             <View style={{height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: 'white'}}>
-                <Text style={{fontSize: 8}}>SFIS MOBILE GRADE VIEWER APPLICATION OF SAN FABIAN INTEGRATED SCHOOL SPED CENTER</Text>
+                <Text style={{fontSize: 8}}>SFIS MOBILE GRADE VIEWER</Text>
             </View>
         </>
     )
